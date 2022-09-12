@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Post
 {
     use TimestampableEntity;
@@ -125,6 +126,14 @@ class Post
         $this->publishedAt = $publishedAt;
 
         return $this;
+    }
+
+    #[ORM\PrePersist]
+    public function setPublishedAtValue(): void
+    {
+        if ($this->draft) {
+            $this->publishedAt = new \DateTimeImmutable();
+        }
     }
 
     public function getAuthor(): User
