@@ -6,6 +6,7 @@ use App\Repository\TagRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TagRepository::class)]
 class Tag
@@ -15,7 +16,9 @@ class Tag
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 20, unique: true)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 2, max: 20)]
     private string $name;
 
     #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'tags')]

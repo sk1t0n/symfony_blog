@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -21,16 +22,24 @@ class Post
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 5, max: 100)]
     private string $title;
 
     #[ORM\Column(length: 100, unique: true)]
     #[Gedmo\Slug(fields: ['title'])]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 5, max: 100)]
     private string $slug;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 5, max: 400)]
     private string $summary;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 10)]
     private string $content;
 
     #[ORM\Column]
