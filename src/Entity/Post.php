@@ -49,7 +49,7 @@ class Post
     private ?\DateTimeImmutable $publishedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'posts')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private User $author;
 
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'posts')]
