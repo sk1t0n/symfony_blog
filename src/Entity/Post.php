@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
@@ -28,7 +29,6 @@ class Post
 
     #[ORM\Column(length: 100, unique: true)]
     #[Gedmo\Slug(fields: ['title'])]
-    #[Assert\NotBlank]
     #[Assert\Length(min: 5, max: 100)]
     private string $slug;
 
