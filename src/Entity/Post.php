@@ -140,7 +140,7 @@ class Post
     #[ORM\PrePersist]
     public function setPublishedAtValue(): void
     {
-        if ($this->draft) {
+        if (!$this->draft) {
             $this->publishedAt = new \DateTimeImmutable();
         }
     }
