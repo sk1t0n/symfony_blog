@@ -23,4 +23,18 @@ class PostController extends AbstractController
             'next' => min(count($paginator), $offset + PostRepository::PAGINATOR_PER_PAGE)
         ]);
     }
+
+    #[Route('/{slug}', name: 'app_show_post')]
+    public function show(string $slug, PostRepository $postRepository): Response
+    {
+        $post = $postRepository->findOneBy(['slug' => $slug]);
+
+        if ($post) {
+            return $this->render('post/show.html.twig', [
+                'post' => $post
+            ]);
+        }
+
+        throw new NotFoundHttpException();
+    }
 }
