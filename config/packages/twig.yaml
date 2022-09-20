@@ -1,5 +1,9 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
+    globals:
+        author: 'Anton Grabovsky'
+        description: "Grabovsky's Blog"
+        title: "Grabovsky's Blog"
 
 when@test:
     twig:
